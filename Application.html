@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Application Form</title>
+    <style>
+        /* General Background and Text Styling */
+        body {
+            background-color: white; /* White background */
+            color: #004080; /* Blue text */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styling for Input and Select Elements */
+        input[type="text"],
+        input[type="file"],
+        select {
+            border: 2px solid #004080; /* Blue border */
+            border-radius: 5px;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: white; /* White background for input fields */
+            color: #004080; /* Blue text inside input fields */
+        }
+
+        /* Submit Button Styling */
+        input[type="submit"] {
+            background-color: #004080; /* Blue background for submit button */
+            color: white; /* White text on the button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003366; /* Darker blue on hover */
+        }
+
+        /* Styling for Fieldsets */
+        fieldset {
+            border: 2px solid #004080; /* Blue border for fieldsets */
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        legend {
+            color: #004080; /* Blue text for legends */
+            font-weight: bold;
+        }
+
+        /* Header Strip */
+        .header-strip {
+            background-color: #004080; /* Blue background for header */
+            padding: 15px;
+            text-align: center;
+            color: white; /* White text in header */
+        }
+
+        .header-strip h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Centering the Form */
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white; /* White form background */
+            border-radius: 10px;
+            border: 2px solid #004080; /* Blue border for the form */
+        }
+
+        /* Instructions Section */
+        .instructions {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f0f8ff; /* Light blue background for instructions */
+            border: 2px solid #004080; /* Blue border for instructions */
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h3 {
+            color: #004080;
+        }
+
+        .instructions p {
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        function validateFileSize(input) {
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+            const maxSize = 2 * 1024 * 1024; // 2 MB
+            const files = input.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (!allowedExtensions.exec(file.name)) {
+                    alert('Invalid file type. Only .JPG, .JPEG, .PNG, .PDF are allowed.');
+                    input.value = ''; // Clear the input
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    alert('File size must be less than 2 MB.');
+                    input.value = ''; // Clear the input
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function validatePhotoSignatureSize(input) {
+            const maxSizeSmall = 50 * 1024; // 50 KB
+            const maxSizeLarge = 2 * 1024 * 1024; // 2 MB
+            const file = input.files[0];
+            const id = input.id;
+
+            if (id === 'recent_photo' || id === 'father_photo' || id === 'mother_photo' || id === 'signature') {
+                if (file.size > maxSizeLarge) {
+                    alert('File size must be less than 2 MB.');
+                    input.value = ''; // Clear the input
+                    return false;
+                }
+
+                // Specific checks for photo and signature
+                if (id === 'recent_photo' || id === 'father_photo' || id === 'mother_photo') {
+                    if (file.size > maxSizeSmall) {
+                        alert('Passport size photo should be between 10–50 KB.');
+                        input.value = ''; // Clear the input
+                        return false;
+                    }
+                }
+
+                if (id === 'signature') {
+                    if (file.size > maxSizeSmall) {
+                        alert('Signature size should be between 10–50 KB.');
+                        input.value = ''; // Clear the input
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header with Blue Strip -->
+    <div class="header-strip">
+        <h2>Prime Minister's Special Scholarship Form</h2>
+    </div>
+<br>
+    <!-- Instructions -->
+    <div class="instructions">
+        <h3>Upload Instructions</h3>
+        <p>Please upload the following documents while filling the application for SSSJKL after registration:</p>
+        <ul>
+            <li><strong>Self-Attested Scanned Copy of:</strong> (in .jpg/.png format, not more than 2MB each)
+                <ul>
+                    <li>Domicile Certificate</li>
+                    <li>SSC Marksheet</li>
+                    <li>Family Income Certificate (Issued by Tehsildar or equivalent, not before 6 months)</li>
+                    <li>Caste Reservation/Physically Disabled Certificates (if any)</li>
+                </ul>
+            </li>
+            <li><strong>Other Attachments:</strong> (in .jpg/.png format, 10–50 KB each)
+                <ul>
+                    <li>Passport Size Photo (200 x 230 pixels - preferred)</li>
+                    <li>Father/Guardian Passport Size Photo (in case of single mother, please upload the mother’s photo in father’s/guardian’s place)</li>
+                    <li>Mother/Guardian Passport Size Photo</li>
+                    <li>Signature (140 x 60 pixels - preferred)</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Note:</strong> All documents should be in .JPG/.PDF/.PNG format and their file size should be less than 2 MB. For photos and signatures, ensure that their size is within the specified ranges.</p>
+    </div>
+
+    <form action="/submit_scholarship" method="post" enctype="multipart/form-data">
+
+        <!-- Aadhar Number -->
+        <fieldset>
+            <legend>Aadhar Number:</legend>
+            <input type="text" id="aadhar" name="aadhar" maxlength="12" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Aadhar Card:</legend>
+            <input type="file" id="aadhar_card" name="aadhar_card" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+        <!-- Education Division -->
+        <fieldset>
+            <legend>Education Certificates</legend>
+
+            <!-- 10th Certificate -->
+            <label for="tenth_certificate">10th Certificate (mandatory):</label><br>
+            <input type="file" id="tenth_certificate" name="tenth_certificate" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+
+            <!-- 12th Certificate -->
+            <label for="twelfth_certificate">12th Certificate (optional):</label><br>
+            <input type="file" id="twelfth_certificate" name="twelfth_certificate" accept=".pdf,.jpg,.jpeg,.png" onchange="validateFileSize(this)"><br><br>
+
+            <!-- Transfer Certificate -->
+            <label for="tc_certificate">Transfer Certificate (mandatory):</label><br>
+            <input type="file" id="tc_certificate" name="tc_certificate" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Income Certificate -->
+        <fieldset>
+            <legend>Income Certificate:</legend>
+            <input type="file" id="income_certificate" name="income_certificate" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Residential State -->
+        <fieldset>
+            <legend>Select State:</legend>
+            <select id="education_level" name="education_level" required>
+                <option value="" disabled selected>Select your option</option>
+                <option value="Jammu and Kashmir">JAMMU AND KASHMIR</option>
+                <option value="Ladakh">LADAKH</option>
+            </select><br><br>
+        </fieldset>
+
+        <!-- Ration Card -->
+        <fieldset>
+            <legend>Ration Card (for residential validation):</legend>
+            <input type="file" id="ration_card" name="ration_card" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Bank Passbook Details -->
+        <fieldset>
+            <legend>Domicile certificate:</legend>
+            <input type="file" id="domicile_certificate" name="domicile_certificate" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Admission Proof -->
+        <fieldset>
+            <legend>Admission Proof or Fee Receipt:</legend>
+            <input type="file" id="admission_proof" name="admission_proof" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Reservation/Physically Disabled Certificates (if any)</legend> 
+            <label for="CasteReservation"></label><br>
+        <input type="file" id="CasteReservation" name="CasteReservation" accept=".pdf,.jpg,.jpeg,.png" onchange="validateFileSize(this)"><br><br></fieldset>
+        
+        <!-- Recent Photo -->
+        <fieldset>
+            <legend>Recent Photo:</legend>
+            <input type="file" id="recent_photo" name="recent_photo" accept=".jpg,.jpeg,.png" required onchange="validatePhotoSignatureSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Father/Guardian Photo -->
+        <fieldset>
+            <legend>Father/Guardian Photo:</legend>
+            <input type="file" id="father_photo" name="father_photo" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Mother/Guardian Photo -->
+        <fieldset>
+            <legend>Mother/Guardian Photo:</legend>
+            <input type="file" id="mother_photo" name="mother_photo" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Signature -->
+        <fieldset>
+            <legend>Signature:</legend>
+            <input type="file" id="signature" name="signature" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <div style="text-align: center;">
+            <input type="submit" value="Submit Application">
+        </div>
+    </form>
+    
+
+</body>
+</html>
