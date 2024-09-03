@@ -183,7 +183,7 @@
         <p><strong>Note:</strong> All documents should be in .JPG/.PDF/.PNG format and their file size should be less than 2 MB. For photos and signatures, ensure that their size is within the specified ranges.</p>
     </div>
 
-    <form action="/submit_scholarship" method="post" enctype="multipart/form-data">
+    <form action="tracker.html" method="get" enctype="multipart/form-data">
 
         <!-- Aadhar Number -->
         <fieldset>
@@ -234,53 +234,30 @@
             <input type="file" id="ration_card" name="ration_card" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
         </fieldset>
 
-        <!-- Bank Passbook Details -->
+        <!-- Scanned Passport Photos -->
         <fieldset>
-            <legend>Domicile certificate:</legend>
-            <input type="file" id="domicile_certificate" name="domicile_certificate" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
-        </fieldset>
+            <legend>Scanned Passport Photos:</legend>
 
-        <!-- Admission Proof -->
-        <fieldset>
-            <legend>Admission Proof or Fee Receipt:</legend>
-            <input type="file" id="admission_proof" name="admission_proof" accept=".pdf,.jpg,.jpeg,.png" required onchange="validateFileSize(this)"><br><br>
-        </fieldset>
-
-        <fieldset>
-            <legend>Reservation/Physically Disabled Certificates (if any)</legend> 
-            <label for="CasteReservation"></label><br>
-        <input type="file" id="CasteReservation" name="CasteReservation" accept=".pdf,.jpg,.jpeg,.png" onchange="validateFileSize(this)"><br><br></fieldset>
-        
-        <!-- Recent Photo -->
-        <fieldset>
-            <legend>Recent Photo:</legend>
+            <!-- Student's Photo -->
+            <label for="recent_photo">Recent Photo (mandatory):</label><br>
             <input type="file" id="recent_photo" name="recent_photo" accept=".jpg,.jpeg,.png" required onchange="validatePhotoSignatureSize(this)"><br><br>
-        </fieldset>
 
-        <!-- Father/Guardian Photo -->
-        <fieldset>
-            <legend>Father/Guardian Photo:</legend>
+            <!-- Father's Photo -->
+            <label for="father_photo">Father's Photo (optional):</label><br>
             <input type="file" id="father_photo" name="father_photo" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
-        </fieldset>
 
-        <!-- Mother/Guardian Photo -->
-        <fieldset>
-            <legend>Mother/Guardian Photo:</legend>
+            <!-- Mother's Photo -->
+            <label for="mother_photo">Mother's Photo (optional):</label><br>
             <input type="file" id="mother_photo" name="mother_photo" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
+
+            <!-- Signature -->
+            <label for="signature">Signature (mandatory):</label><br>
+            <input type="file" id="signature" name="signature" accept=".jpg,.jpeg,.png" required onchange="validatePhotoSignatureSize(this)"><br><br>
         </fieldset>
 
-        <!-- Signature -->
-        <fieldset>
-            <legend>Signature:</legend>
-            <input type="file" id="signature" name="signature" accept=".jpg,.jpeg,.png" onchange="validatePhotoSignatureSize(this)"><br><br>
-        </fieldset>
-
-        <!-- Submit Button -->
-        <div style="text-align: center;">
-            <input type="submit" value="Submit Application">
-        </div>
+        <!-- Form Submission -->
+        <input type="submit" value="Submit">
     </form>
-    
 
 </body>
 </html>
